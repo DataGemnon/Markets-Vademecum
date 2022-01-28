@@ -57,8 +57,7 @@ for i in range(3):
 
 At the moment, our variable z has a drift rate (average change per unit of time) equal to 0, meaning that the expected value at a future point in time is equal to the current value, and a variance rate of 1. A Generalized Wiener Process for variable x using z would look like this :
 
-<img src="https://render.githubusercontent.com/render/math?math=\Delta x = a\cdot dt+b\cdot dz "> or <img src="https://render.githubusercontent.com/render/math?math=\Delta x = a\cdot dt + b\cdot \varepsilon \sqrt{dt}"> with a and b being two constants. Constant a represents the drift rate and <img src="https://render.githubusercontent.com/render/math?math=\b\cdot dz "> represents the "uncertain" part in the <img src="https://render.githubusercontent.com/render/math?math=\Delta x">.
+<img src="https://render.githubusercontent.com/render/math?math=\Delta x = a\cdot dt%2bb\cdot dz "> or <img src="https://render.githubusercontent.com/render/math?math=\Delta x = a\cdot dt %2b b\cdot \varepsilon \sqrt{dt}"> with a and b being two constants. Constant a represents the drift rate and <img src="https://render.githubusercontent.com/render/math?math=\b\cdot dz "> represents the "uncertain" part in the <img src="https://render.githubusercontent.com/render/math?math=\Delta x">.
 
-<img src="https://render.githubusercontent.com/render/math?math=\Delta x = a\cdot dt + b\cdot \varepsilon \sqrt{dt} "> 
 
 
