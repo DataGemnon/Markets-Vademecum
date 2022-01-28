@@ -63,7 +63,7 @@ In a time interval T (as seen previously), dx would be normally distributed with
 
 In reality both constants a and b are not sufficient because investors ask for a specific return (variable a) independently of the current stock price (they will ask 10% whether the price is 50$ or 100$). Hence we need to replace the drift rate a with the expected return <img src="https://render.githubusercontent.com/render/math?math=\mu S"> (with the constant expected rate of return of the stock being <img src="https://render.githubusercontent.com/render/math?math=\mu">). 
 
-If we take out the uncertainty term we hav:
+If we take out the uncertainty term we have:
 <img src="https://render.githubusercontent.com/render/math?math=\Delta S = \mu S\cdot dt"> and, if we develop just a bit, <img src="https://render.githubusercontent.com/render/math?math=\frac{\Delta S}{S}=\mu \cdot dt">. This means that without uncertainty during a small time increment dt, the stock's percent of change is of <img src="https://render.githubusercontent.com/render/math?math=\mu \cdot dt">.
 
 Taking again a longer time interval T, the above equation could be developped as follows: <img src="https://render.githubusercontent.com/render/math?math=S_{T}=S_{0}e^{\mu T}"> with <img src="https://render.githubusercontent.com/render/math?math=\S_{0}"> being the stock price at time 0.
