@@ -57,7 +57,16 @@ for i in range(3):
 
 At the moment, our variable z has a drift rate (average change per unit of time) equal to 0, meaning that the expected value at a future point in time is equal to the current value, and a variance rate of 1. A Generalized Wiener Process for variable x using z would look like this :
 
-<img src="https://render.githubusercontent.com/render/math?math=\Delta x = a\cdot dt%2bb\cdot dz "> or <img src="https://render.githubusercontent.com/render/math?math=\Delta x = a\cdot dt %2b b\cdot \varepsilon \sqrt{dt}"> with a and b being two constants. Constant a represents the drift rate and <img src="https://render.githubusercontent.com/render/math?math=\b\cdot dz "> represents the "uncertain" part in the <img src="https://render.githubusercontent.com/render/math?math=\Delta x">.
+<img src="https://render.githubusercontent.com/render/math?math=\Delta x = a\cdot dt%2bb\cdot dz "> or <img src="https://render.githubusercontent.com/render/math?math=\Delta x = a\cdot dt %2b b\cdot \varepsilon \sqrt{dt}"> with a and b being two constants. Constant a represents the drift rate and <img src="https://render.githubusercontent.com/render/math?math=\b\cdot dz "> represents the "uncertain" part in the <img src="https://render.githubusercontent.com/render/math?math=\Delta x">. Here dx follows a normal distribution wth mean <img src="https://render.githubusercontent.com/render/math?math=\Delta x = a\cdot dt"> and standard deviation <img src="https://render.githubusercontent.com/render/math?math=\b\cdot \varepsilon \sqrt{dt}">.
+
+In a time interval T (as seen previously), dx would be normally distributed with mean <img src="https://render.githubusercontent.com/render/math?math=\a\cdot T"> and standard deviation <img src="https://render.githubusercontent.com/render/math?math=\sqrt{T}">.
+
+In reality both constants a and b are not sufficient because investors ask for a specific return (variable a) independently of the current stock price (they will ask 10% whether the price is 50$ or 100$). Hence we need to replace the drift rate a with the expected return <img src="https://render.githubusercontent.com/render/math?math=\mu S"> (with the constant expected rate of return of the stock being <img src="https://render.githubusercontent.com/render/math?math=\mu">). 
+
+If we take out the uncertainty term we hav:
+<img src="https://render.githubusercontent.com/render/math?math=\Delta S = \mu S\cdot dt"> and, if we develop just a bit, <img src="https://render.githubusercontent.com/render/math?math=\frac{\Delta S}{S}=\mu \cdot dt">. This means that without uncertainty during a small time increment dt, the stock's percent of change is of <img src="https://render.githubusercontent.com/render/math?math=\mu \cdot dt">.
+
+Taking again a longer time interval T, the above equation could be developped as follows: <img src="https://render.githubusercontent.com/render/math?math=S_{T}=S_{0}e^{\mu T}"> with <img src="https://render.githubusercontent.com/render/math?math=\S_{0}"> being the stock price at time 0.
 
 
 
