@@ -53,7 +53,7 @@ for i in range(3):
     plt.grid(True)
 ```
 
-#### Generalized Wiener Process
+#### Geometric Brownian Motion
 
 At the moment, our variable z has a drift rate (average change per unit of time) equal to 0, meaning that the expected value at a future point in time is equal to the current value, and a variance rate of 1. A Generalized Wiener Process for variable x using z would look like this :
 
@@ -67,6 +67,49 @@ If we take out the uncertainty term we have:
 <img src="https://render.githubusercontent.com/render/math?math=\Delta S = \mu S\cdot dt"> and, if we develop just a bit, <img src="https://render.githubusercontent.com/render/math?math=\frac{\Delta S}{S}=\mu \cdot dt">. This means that without uncertainty during a small time increment dt, the stock's percent of change is of <img src="https://render.githubusercontent.com/render/math?math=\mu \cdot dt">.
 
 Taking again a longer time interval T, the above equation could be developped as follows: <img src="https://render.githubusercontent.com/render/math?math=S_{T}=S_{0}e^{\mu T}"> with <img src="https://render.githubusercontent.com/render/math?math=\S_{0}"> being the stock price at time 0.
+
+Problem with this equation is that there is no uncertainty factor. Whatever the stock price, we believe that the variability of the stock price remains the same (in a short period of time, the standard deviation in the change of the price should be proportional to the stock price).
+
+<img src="https://render.githubusercontent.com/render/math?math=\dS=\mu S\cdot dt %2b \sigma S\cdot \varepsilon \sqrt{dt}">
+
+We recognize in here two parameters: <img src="https://render.githubusercontent.com/render/math?math=\mu"> (the expected rate of return for that stock) and <img src="https://render.githubusercontent.com/render/math?math=\sigma"> (the volatility of that stock).
+
+This model is called a Geometric Brownian Motion and we can easily deduct the following:
+
+<img src="https://render.githubusercontent.com/render/math?math=\frac{dS}{S}=\mu \cdot dt%2b\sigma\cdot\varepsilon \sqrt{dt}">
+
+The following code allows you to simulate several (here 10) paths of a stock (in this case with an expected return of 8%, volatility of 20%, initial price 100$ and during 1000 time increments).
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+def GBM(s0, mu, sigma, T, N):
+    dt=T/N
+    ds=np.zeros(shape=N)
+    ds[0]=0
+    allS=np.zeros(shape=N)
+    allS[0]=s0
+    for i in range(1, N):
+        ds[i]=mu*allS[i-1]*dt+sigma*allS[i-1]*np.random.normal(0,1)*np.sqrt(dt)
+        allS[i]=allS[i-1]+ds[i]
+    return(allS)
+    
+N = 1000
+T = 1
+dt = T / float(N)
+t = np.linspace(0.0, N*dt, N)
+plt.figure(figsize=(15,10))
+for i in range(10):
+    W = GBM(100, 0.08, 0.2, T, N)
+    plt.plot(t, W)
+    plt.xlabel('time')
+    plt.ylabel('Stock Price')
+    plt.grid(True)
+```
+
+![GBM](https://user-images.githubusercontent.com/76557960/151659322-25413d9f-0648-49c3-8b11-0931210f91c7.png)
+
 
 
 
