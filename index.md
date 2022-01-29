@@ -1,37 +1,72 @@
-## Welcome to GitHub Pages
+# Markets Vade Mecum
+Gathering mathematical knowledge about financial markets.
 
-You can use the [editor on GitHub](https://github.com/DataGemnon/Markets-Vademecum/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+This work is done by Master in Finance students.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Stock path modeling
+#### Short introduction to options
 
-### Markdown
+Options are financial derivatives that give their holder the right (not the obligation) to buy or sell the underlying asset (stocks, currencies …) for a given price at a given maturity. Calls options give their holders the right to buy and put options the right to sell. The payoff of a call is given by max(0 ; St-K) and the payoff of a put is given by max(0 ; K-St) with K being the strike price and St the spot price. But before going into the option's pricing theory, we must see how to modelize stock paths. 
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+#### Markov Process & Wiener Process
 
-```markdown
-Syntax highlighted code block
+In options pricing, the value of the underlying evolves in an uncertain way and is, therefore, a continuous-time stochastic process. To be more precise, the price of the UA (underlying asset, like stocks) is a Markovian process, a specific type of stochastic process in which only the latest value is helpful to provide the future one.
 
-# Header 1
-## Header 2
-### Header 3
+A Wiener process is one kind of Markov process with mean 0 and variance 1. A variable z follows a Wiener process as follows:
 
-- Bulleted
-- List
+ <img src="https://render.githubusercontent.com/render/math?math=\Delta z = \varepsilon \sqrt{\Delta t} "> 
 
-1. Numbered
-2. List
+*  with <img src="https://render.githubusercontent.com/render/math?math=\Delta z "> being the change of variable z, <img src="https://render.githubusercontent.com/render/math?math=\Delta t "> being a small time increment and <img src="https://render.githubusercontent.com/render/math?math=\varepsilon "> being a normally distributed variable (<img src="https://render.githubusercontent.com/render/math?math=\Phi \left ( 0,1 \right ) ">). <img src="https://render.githubusercontent.com/render/math?math=\Delta z "> is also normally distributed with mean 0, variance <img src="https://render.githubusercontent.com/render/math?math=\Delta t "> and standard deviation <img src="https://render.githubusercontent.com/render/math?math=\sqrt{\Delta t}">.
 
-**Bold** and _Italic_ and `Code` text
+* <img src="https://render.githubusercontent.com/render/math?math=\Delta z ">for different time increments are independent.
 
-[Link](url) and ![Image](src)
+<img src="https://render.githubusercontent.com/render/math?math=\ z\left ( T \right )-z\left ( 0 \right )"> gives us the change of the variable z betwenn time 0 and time T. If we consider that there are N time increments <img src="https://render.githubusercontent.com/render/math?math=\Delta t "> between time 0 and time T (<img src="https://render.githubusercontent.com/render/math?math=\N = \frac{T}{\Delta t} ">), we can  deduce following equation:
+
+<img src="https://render.githubusercontent.com/render/math?math=\z\left ( T \right )-z\left ( 0 \right )=\sum_{i}^{N} e_{i}\sqrt{\Delta t} ">
+
+<img src="https://render.githubusercontent.com/render/math?math=\ z\left ( T \right )-z\left ( 0 \right )"> follows a normal distribution with mean 0 and standard deviation <img src="https://render.githubusercontent.com/render/math?math=\sqrt{\T}">.
+
+![3 wiener processes](https://user-images.githubusercontent.com/76557960/151622627-232c15dd-061a-499c-97ed-bc491edfebc6.png)
+
+This chart represents 3 Wiener Processes with T=10 and N=1000 (you can use the following code to get the results). 
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+def wiener(T, N):
+    Z0 = [0]
+    dt = T/float(N)
+    dz = np.random.normal(0, 1*np.sqrt(dt), N)
+    Z = Z0 + list(np.cumsum(dz))
+    return Z
+
+N = 1000
+T = 10
+dt = T / float(N)
+t = np.linspace(0.0, N*dt, N+1)
+plt.figure(figsize=(15,10))
+for i in range(3):
+    W = wiener(T, N)
+    plt.plot(t, W)
+    plt.xlabel('time')
+    plt.ylabel('Z')
+    plt.grid(True)
 ```
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+#### Generalized Wiener Process
 
-### Jekyll Themes
+At the moment, our variable z has a drift rate (average change per unit of time) equal to 0, meaning that the expected value at a future point in time is equal to the current value, and a variance rate of 1. A Generalized Wiener Process for variable x using z would look like this :
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/DataGemnon/Markets-Vademecum/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+<img src="https://render.githubusercontent.com/render/math?math=\Delta x = a\cdot dt%2bb\cdot dz "> or <img src="https://render.githubusercontent.com/render/math?math=\Delta x = a\cdot dt %2b b\cdot \varepsilon \sqrt{dt}"> with a and b being two constants. Constant a represents the drift rate and <img src="https://render.githubusercontent.com/render/math?math=\b\cdot dz "> represents the "uncertain" part in the <img src="https://render.githubusercontent.com/render/math?math=\Delta x">. Here dx follows a normal distribution wth mean <img src="https://render.githubusercontent.com/render/math?math=\Delta x = a\cdot dt"> and standard deviation <img src="https://render.githubusercontent.com/render/math?math=\b\cdot \varepsilon \sqrt{dt}">.
 
-### Support or Contact
+In a time interval T (as seen previously), dx would be normally distributed with mean <img src="https://render.githubusercontent.com/render/math?math=\a\cdot T"> and standard deviation <img src="https://render.githubusercontent.com/render/math?math=\sqrt{T}">.
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+In reality both constants a and b are not sufficient because investors ask for a specific return (variable a) independently of the current stock price (they will ask 10% whether the price is 50$ or 100$). Hence we need to replace the drift rate a with the expected return <img src="https://render.githubusercontent.com/render/math?math=\mu S"> (with the constant expected rate of return of the stock being <img src="https://render.githubusercontent.com/render/math?math=\mu">). 
+
+If we take out the uncertainty term we have:
+<img src="https://render.githubusercontent.com/render/math?math=\Delta S = \mu S\cdot dt"> and, if we develop just a bit, <img src="https://render.githubusercontent.com/render/math?math=\frac{\Delta S}{S}=\mu \cdot dt">. This means that without uncertainty during a small time increment dt, the stock's percent of change is of <img src="https://render.githubusercontent.com/render/math?math=\mu \cdot dt">.
+
+Taking again a longer time interval T, the above equation could be developped as follows: <img src="https://render.githubusercontent.com/render/math?math=S_{T}=S_{0}e^{\mu T}"> with <img src="https://render.githubusercontent.com/render/math?math=\S_{0}"> being the stock price at time 0.
+
+
+
