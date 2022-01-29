@@ -78,6 +78,9 @@ This model is called a Geometric Brownian Motion and we can easily deduct the fo
 
 <img src="https://render.githubusercontent.com/render/math?math=\frac{dS}{S}=\mu \cdot dt%2b\sigma\cdot\varepsilon \sqrt{dt}">
 
+Here <img src="https://render.githubusercontent.com/render/math?math=\frac{dS}{S}"> is normally distributed with mean <img src="https://render.githubusercontent.com/render/math?math=\mu \cdot dt"> and standard deviation <img src="https://render.githubusercontent.com/render/math?math=\sigma\cdot\varepsilon \sqrt{dt}">.
+
+
 The following code allows you to simulate several (here 10) paths of a stock (in this case with an expected return of 8%, volatility of 20%, initial price 100$ and during 1000 time increments).
 
 ```python
@@ -110,6 +113,13 @@ for i in range(10):
 
 ![GBM](https://user-images.githubusercontent.com/76557960/151659322-25413d9f-0648-49c3-8b11-0931210f91c7.png)
 
+#### Itô's lemma and the lognormal property of stock prices
+
+We remember the equation <img src="https://render.githubusercontent.com/render/math?math=\dS=\mu S\cdot dt %2b \sigma S\cdot \varepsilon \sqrt{dt}"> seen above. If we have a variable G dependent on both S and t, Itô's lemma helps us to determine the following:
+
+<img src="https://render.githubusercontent.com/render/math?math=\dG = (\frac{\delta G}{\delta S}\mu S %2b \frac{\delta G}{\delta t} %2b \frac{1}{2}\frac{\delta ^{2} G}{\delta S^{2}}\sigma ^{2}S^{2})dt %2b \frac{\delta G}{\delta S}\sigma S\cdot \varepsilon \sqrt{dt} ">
+
+To show you the lognormal property of stock prices, we define <img src="https://render.githubusercontent.com/render/math?math=\G = ln(S)">
 
 
 
