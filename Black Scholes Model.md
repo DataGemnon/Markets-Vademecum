@@ -17,3 +17,11 @@ With Itô's Lemma we can easily imagine the price of an option whose underlying 
 
 The Black Scholes Model takes into account an argument that will help us to develop until the final equation: it is possible to build a riskless portfolio using one position on a European call and one position in its underlying stock (both having the same source of volatility, namely changes in the stock price).
 If the portfolio is built correctly, the position in the stock will balance the changes in the price of the call (and vice versa). 
+
+Using Itô's formula just above, we can build a portfolio composed of -1 call (short position) and  <img src="https://render.githubusercontent.com/render/math?math=\frac{\delta F}{\delta S}"> units of the underlying stock S to eliminate the Wiener Process dz (it is the same Wiener Process for S and F). 
+
+<img src="https://render.githubusercontent.com/render/math?math=\Pi = -F+%2b\frac{\delta F}{\delta S}S"> <=> <img src="https://render.githubusercontent.com/render/math?math=\Pi = -\Delta F%2b\frac{\delta F}{\delta S}{\Delta S}"> with <img src="https://render.githubusercontent.com/render/math?math=\Pi"> representing the value of the portfolio.  
+
+Pluging in the formulas for dF and dS we get:
+
+<img src="https://render.githubusercontent.com/render/math?math=\d\Pi =(-\frac{\delta F}{\delta t}-\frac{1}{2}\frac{\delta ^{2}F}{\delta S^{2}}\sigma ^{2}S^{2})dt">
