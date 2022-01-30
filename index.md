@@ -161,9 +161,46 @@ price_interval(100, 0.12, 0.18, 0.75)
 
 ![lognormal distrib of prices](https://user-images.githubusercontent.com/76557960/151696897-f8d2190e-258c-4a2b-9cf1-8e492a12c30e.png)
 
-We can run 100 simulations have a glimpse at the distribution at T=0.75 using the GBM function provided earlier.
+We can run 100 simulations to have a glimpse at the distribution at T=0.75 using the GBM function provided earlier.
 
 ![100 simulations distribution](https://user-images.githubusercontent.com/76557960/151697385-a3200870-776c-4148-a2af-e8a35aa00f99.png)
+
+S has a lognormal distribution and we can infer from the propoerties of a lognormal distribution the following:
+
+<img src="https://render.githubusercontent.com/render/math?math=\E(S_{T})=S_{0}e^{\mu T}"> for the expected value of <img src="https://render.githubusercontent.com/render/math?math=\S_{T}"> and <img src="https://render.githubusercontent.com/render/math?math=\var(S_{T})=S_{0}^{2}e^{2\mu T}(e^{\sigma ^{2}T}-1)"> concerning its variance. 
+
+#### The distribution of returns
+
+Considering both previous equations, we can have a glimpse on the distribution of the continiously compounded rate of return we will consider as x:
+
+<img src="https://render.githubusercontent.com/render/math?math=\E(S_{T})=S_{0}e^{x T}"> <=> <img src="https://render.githubusercontent.com/render/math?math=\x=\frac{1}{T}\cdot ln(\frac{S_{T}}{S_{0}})">
+
+We remember the distribution of <img src="https://render.githubusercontent.com/render/math?math=\ln(\frac{S_{T}}{S_{0}})"> and can deduct the following:
+
+<img src="https://render.githubusercontent.com/render/math?math=\x\sim \Phi (\mu -\frac{1}{2}\sigma ^{2}, \sigma ^{2}T)">
+
+x is normally distributed with mean <img src="https://render.githubusercontent.com/render/math?math=\mu -\frac{1}{2}\sigma ^{2}"> and variance <img src="https://render.githubusercontent.com/render/math?math=\sigma ^{2}T)">
+
+The following code gives us the distribution of the average rate of return x for 1.5 years, an expected return of 10% and volatility of 16%.
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+def return_distrib(mu, sigma, T):
+    mid = mu-0.5*sigma**2
+    var = (sigma ** 2) / T
+    plt.hist(np.random.normal(loc = mid,
+                              scale = var,
+                              size =1000))
+    interval = [mid-np.sqrt(var)*1.96, mid+np.sqrt(var)*1.96]
+    plt.xlabel('Average rate of return')
+    plt.show()
+    print("There is a 95% chance that the stock price will be between {} and {}.".format(interval[0], interval[1]))
+
+return_distrib(0.1, 0.16, 1.5)
+```
+![rate of return distribution](https://user-images.githubusercontent.com/76557960/151703233-c727643f-1c38-499e-a860-98cd2027bf15.png)
 
 
 
