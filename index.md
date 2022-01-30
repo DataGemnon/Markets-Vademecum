@@ -202,6 +202,13 @@ return_distrib(0.1, 0.16, 1.5)
 ```
 ![rate of return distribution](https://user-images.githubusercontent.com/76557960/151703233-c727643f-1c38-499e-a860-98cd2027bf15.png)
 
+Caution: <img src="https://render.githubusercontent.com/render/math?math=\mu"> and the average rate of return are not the same. 
+
+#### Volatility
+
+The indicator of volatility is the standard deviation. 
+
+
 
 
 
