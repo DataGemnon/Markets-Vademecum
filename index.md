@@ -161,6 +161,9 @@ price_interval(100, 0.12, 0.18, 0.75)
 
 ![lognormal distrib of prices](https://user-images.githubusercontent.com/76557960/151696897-f8d2190e-258c-4a2b-9cf1-8e492a12c30e.png)
 
+We can run 100 simulations have a glimpse at the distribution at T=0.75 using the GBM function provided earlier.
+
+![100 simulations distribution](https://user-images.githubusercontent.com/76557960/151697385-a3200870-776c-4148-a2af-e8a35aa00f99.png)
 
 
 
