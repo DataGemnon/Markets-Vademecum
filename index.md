@@ -135,7 +135,7 @@ Now we can plug that in:
 
 The change of G between time 0 and time T is normally distributed with mean <img src="https://render.githubusercontent.com/render/math?math=\(\mu -\frac{1}{2}\sigma ^{2})T"> and variance <img src="https://render.githubusercontent.com/render/math?math=\sigma ^{2}T">.
 
-<img src="https://render.githubusercontent.com/render/math?math=\ln(S_{T})-ln(S_{0})\sim \Phi ((\mu -\frac{1}{2}\sigma ^{2})T, \sigma ^{2}T)"> <=> <img src="https://render.githubusercontent.com/render/math?math=\ln(S_{T})\sim \Phi (ln(S_{0})+(\mu -\frac{1}{2}\sigma ^{2})T, \sigma ^{2}T)">
+<img src="https://render.githubusercontent.com/render/math?math=\ln(S_{T})-ln(S_{0})\sim \Phi ((\mu -\frac{1}{2}\sigma ^{2})T, \sigma ^{2}T)"> <=> <img src="https://render.githubusercontent.com/render/math?math=\ln(S_{T})\sim \Phi (ln(S_{0})%2b(\mu -\frac{1}{2}\sigma ^{2})T, \sigma ^{2}T)">
 
 <img src="https://render.githubusercontent.com/render/math?math=\S_{T}"> has a lognormal distribution because its logarithm <img src="https://render.githubusercontent.com/render/math?math=\ln(S_{T})"> is normally distributed. 
 
@@ -204,9 +204,15 @@ return_distrib(0.1, 0.16, 1.5)
 
 Caution: <img src="https://render.githubusercontent.com/render/math?math=\mu"> and the average rate of return are not the same. 
 
-#### Volatility
+The indicator of volatility of the stock is the standard deviation. The following code allows to extract stock data from Yahoo Finance's API and to compute from it the standard deviation:
 
-The indicator of volatility is the standard deviation. 
+```python
+import yfinance as yf
+
+tickers = ['MSFT', 'AAPL', 'FB']
+data = yf.download(tickers, start='2020-01-01', end='2020-05-31')["Adj Close"] 
+all_std=data.std(axis = 0, skipna = True)
+```
 
 
 
