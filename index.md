@@ -53,7 +53,7 @@ for i in range(3):
     plt.grid(True)
 ```
 
-#### Geometric Brownian Motion
+#### Generalized Wiener Process
 
 At the moment, our variable z has a drift rate (average change per unit of time) equal to 0, meaning that the expected value at a future point in time is equal to the current value, and a variance rate of 1. A Generalized Wiener Process for variable x using z would look like this :
 
@@ -74,7 +74,7 @@ Problem with this equation is that there is no uncertainty factor. Whatever the 
 
 We recognize in here two parameters: <img src="https://render.githubusercontent.com/render/math?math=\mu"> (the expected rate of return for that stock) and <img src="https://render.githubusercontent.com/render/math?math=\sigma"> (the volatility of that stock).
 
-This model is called a Geometric Brownian Motion and we can easily deduct the following:
+This model is called a generalized Wiener Process and we can easily deduct the following:
 
 <img src="https://render.githubusercontent.com/render/math?math=\frac{dS}{S}=\mu \cdot dt%2b\sigma\cdot\varepsilon \sqrt{dt}">
 
@@ -132,6 +132,35 @@ We can compute the derivatives one by one:
 Now we can plug that in:
 
 <img src="https://render.githubusercontent.com/render/math?math=\dG=(\frac{1}{S}\cdot \mu S %2b \frac{1}{2}\cdot -\frac{1}{S^{2}}\cdot \sigma ^{2}S^{2})dt %2b \frac{1}{S}\cdot \sigma S\cdot \varepsilon \sqrt{dt}"> <=> <img src="https://render.githubusercontent.com/render/math?math=\dG=(\mu -\frac{1}{2}\sigma ^{2})dt %2b \sigma \cdot \varepsilon \sqrt{dt}">
+
+The change of G between time 0 and time T is normally distributed with mean <img src="https://render.githubusercontent.com/render/math?math=\(\mu -\frac{1}{2}\sigma ^{2})T"> and variance <img src="https://render.githubusercontent.com/render/math?math=\sigma ^{2}T">.
+
+<img src="https://render.githubusercontent.com/render/math?math=\ln(S_{T})-ln(S_{0})\sim \Phi ((\mu -\frac{1}{2}\sigma ^{2})T, \sigma ^{2}T)"> <=> <img src="https://render.githubusercontent.com/render/math?math=\ln(S_{T})\sim \Phi (ln(S_{0})+(\mu -\frac{1}{2}\sigma ^{2})T, \sigma ^{2}T)">
+
+<img src="https://render.githubusercontent.com/render/math?math=\S_{T}"> has a lognormal distribution because its logarithm <img src="https://render.githubusercontent.com/render/math?math=\ln(S_{T})"> is normally distributed. 
+
+Knowing this, it is possible for us to compute an interval for <img src="https://render.githubusercontent.com/render/math?math=\S_{T}">. The following code provides an interval for a stock with price at time 0 100$, expected return 12%, variance 18% for T=0.75 (9 months). In this case, there is a 95% chance that the price will be between 82.06$ and 151.19$.
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+def price_interval(S0, mu, sigma, T):
+    mid = np.log(S0)+(mu - (0.5 * sigma **2) * T)
+    var = sigma ** 2 * T
+    plt.hist(np.random.normal(loc = np.exp(mid),
+                              scale = var,
+                              size =1000))
+    plt.xlabel('ST')
+    plt.show()
+    interval = [np.exp(mid-np.sqrt(var)*1.96), np.exp(mid+np.sqrt(var)*1.96)]
+    plt.show()
+    print("There is a 95% chance that the stock price will be between {} and {}.".format(interval[0], interval[1]))
+price_interval(100, 0.12, 0.18, 0.75)
+```
+
+![lognormal distrib of prices](https://user-images.githubusercontent.com/76557960/151696897-f8d2190e-258c-4a2b-9cf1-8e492a12c30e.png)
+
 
 
 
