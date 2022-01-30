@@ -25,3 +25,13 @@ Using Itô's formula just above, we can build a portfolio composed of -1 call (s
 Pluging in the formulas for dF and dS we get:
 
 <img src="https://render.githubusercontent.com/render/math?math=\d\Pi =(-\frac{\delta F}{\delta t}-\frac{1}{2}\frac{\delta ^{2}F}{\delta S^{2}}\sigma ^{2}S^{2})dt">
+
+With this equation we got rid of the "uncertainty" represented bu dz. If there is no arbitrage opportunity, this portfolio should earn as much as the risk-free rate. For a small time icrement, we can deduce the following:
+
+<img src="https://render.githubusercontent.com/render/math?math=\d\Pi = r \Pi\cdot dt"> 
+
+or written differently:
+
+<img src="https://render.githubusercontent.com/render/math?math=\(\frac{\delta F}{\delta t}%2b\frac{1}{2}\frac{\delta ^{2}F}{\delta S^{2}}\sigma ^{2}S^{2})dt = r(-F%2b\frac{\delta F}{\delta S}S)dt"> <=> <img src="https://render.githubusercontent.com/render/math?math=\rf=\frac{\delta F}{\delta t}%2brs\frac{\delta F}{\delta S}%2b\frac{1}{2}\sigma ^{2}S^{2}\frac{\delta ^{2}F}{\delta S^{2}}">
+
+
