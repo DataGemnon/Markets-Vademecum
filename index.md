@@ -121,5 +121,18 @@ We remember the equation <img src="https://render.githubusercontent.com/render/m
 
 To show you the lognormal property of stock prices, we define <img src="https://render.githubusercontent.com/render/math?math=\G = ln(S)">
 
+We can compute the derivatives one by one:
+
+<img src="https://render.githubusercontent.com/render/math?math=\frac{\delta G}{\delta S}=\frac{1}{S}">
+
+<img src="https://render.githubusercontent.com/render/math?math=\frac{\delta G}{\delta t}=0">
+
+<img src="https://render.githubusercontent.com/render/math?math=\frac{\delta^{2} G}{\delta S^{2}}= -\frac{1}{S^{2}}">
+
+Now we can plug that in:
+
+<img src="https://render.githubusercontent.com/render/math?math=\dG=(\frac{1}{S}\cdot \mu S %2b \frac{1}{2}\cdot -\frac{1}{S^{2}}\cdot \sigma ^{2}S^{2})dt %2b \frac{1}{S}\cdot \sigma S\cdot \varepsilon \sqrt{dt}"> <=> <img src="https://render.githubusercontent.com/render/math?math=\dG=(\mu -\frac{1}{2}\sigma ^{2})dt %2b \sigma \cdot \varepsilon \sqrt{dt}">
+
+
 
 
