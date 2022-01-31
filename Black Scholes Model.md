@@ -38,3 +38,12 @@ This last equation is called the Black Scholes partial differential equation and
 This is why we need to define the boundaries at maturity T:
 * <img src="https://render.githubusercontent.com/render/math?math=\max (S_{T}-K, 0)"> for a European call
 * <img src="https://render.githubusercontent.com/render/math?math=\max (K-S_{T}, 0)"> for a European put
+
+The most known solutions are the Black Scholes Formulas
+
+<img src="https://render.githubusercontent.com/render/math?math=\c=S_{0}N(d_{1})-Ke^{-rT}N(d_{2})"> for European calls
+
+<img src="https://render.githubusercontent.com/render/math?math=\p=Ke^{-rT}N(-d_{2})-S_{0}N(-d_{1})"> for European puts
+
+with <img src="https://render.githubusercontent.com/render/math?math=\d_{1}=\frac{ln(S_{0}/K)%2b(r%2b\sigma ^{2}/2)T}{\sigma \sqrt{T}}"> and <img src="https://render.githubusercontent.com/render/math?math=\d_{2}=\frac{ln(S_{0}/K)%2b(r-\sigma ^{2}/2)T}{\sigma \sqrt{T}}=d_{1}-\sigma \sqrt{T}">
+
