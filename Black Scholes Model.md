@@ -32,7 +32,7 @@ With this equation we got rid of the "uncertainty" represented bu dz. If there i
 
 or written differently:
 
-<img src="https://render.githubusercontent.com/render/math?math=\(\frac{\delta F}{\delta t}%2b\frac{1}{2}\frac{\delta ^{2}F}{\delta S^{2}}\sigma ^{2}S^{2})dt = r(-F%2b\frac{\delta F}{\delta S}S)dt"> <=> <img src="https://render.githubusercontent.com/render/math?math=\rf=\frac{\delta F}{\delta t}%2brs\frac{\delta F}{\delta S}%2b\frac{1}{2}\sigma ^{2}S^{2}\frac{\delta ^{2}F}{\delta S^{2}}">
+<img src="https://render.githubusercontent.com/render/math?math=\(\frac{\delta F}{\delta t}%2b\frac{1}{2}\frac{\delta ^{2}F}{\delta S^{2}}\sigma ^{2}S^{2})dt = r(-F%2b\frac{\delta F}{\delta S}S)dt"> <=> <img src="https://render.githubusercontent.com/render/math?math=\rF=\frac{\delta F}{\delta t}%2brs\frac{\delta F}{\delta S}%2b\frac{1}{2}\sigma ^{2}S^{2}\frac{\delta ^{2}F}{\delta S^{2}}">
 
 This last equation is called the Black Scholes partial differential equation and allows many solutions as the value of the derivatives are multiple. 
 This is why we need to define the boundaries at maturity T:
