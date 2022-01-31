@@ -47,3 +47,5 @@ The most known solutions are the Black Scholes Formulas
 
 with <img src="https://render.githubusercontent.com/render/math?math=\d_{1}=\frac{ln(S_{0}/K)%2b(r%2b\sigma ^{2}/2)T}{\sigma \sqrt{T}}"> and <img src="https://render.githubusercontent.com/render/math?math=\d_{2}=\frac{ln(S_{0}/K)%2b(r-\sigma ^{2}/2)T}{\sigma \sqrt{T}}=d_{1}-\sigma \sqrt{T}">
 
+N(x) represents the cumulative density function for x, a normally distributed variable. 
+
