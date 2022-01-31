@@ -91,7 +91,7 @@ ax2.plot_surface(X, Y, Z2, rstride=1, cstride=1, cmap='viridis', edgecolor='none
 ax2.set_title("3-dimensional plot of put prices", fontsize = 13)
 ax2.set_xlabel('sigma', fontsize = 11)
 ax2.set_ylabel('strike', fontsize = 11)
-ax2.set_zlabel('call price', fontsize = 10)
+ax2.set_zlabel('put price', fontsize = 10)
 ```
 
 First representation for calls:
@@ -100,4 +100,5 @@ First representation for calls:
 
 Second representation for puts:
 
-![3d for puts](https://user-images.githubusercontent.com/76557960/151881139-c463c540-ffaf-4d7e-9374-d57af56ae913.png)
+![3d put price](https://user-images.githubusercontent.com/76557960/151881392-f8769da2-0574-4260-bb3b-5e8481f43b92.png)
+
