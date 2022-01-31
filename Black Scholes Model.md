@@ -49,3 +49,24 @@ with <img src="https://render.githubusercontent.com/render/math?math=\d_{1}=\fra
 
 N(x) represents the cumulative density function for x, a normally distributed variable. 
 
+The following code provides two functions to calculate the price of a European call et a European put. 
+
+```python
+import numpy as np
+from scipy.stats import norm
+
+def bs_call(S, K, r, sigma, T):
+    d1=(np.log(S/K)+(r+(sigma**2)/2)*T)/(sigma*np.sqrt(T))
+    d2=d1-sigma*np.sqrt(T)
+    c = S*norm.cdf(d1)-K*np.exp(-r*T)*norm.cdf(d2)
+    return c
+
+def bs_put(S, K, r, sigma, T):
+    d1=(np.log(S/K)+(r+(sigma**2)/2)*T)/(sigma*np.sqrt(T))
+    d2=d1-sigma*np.sqrt(T)
+    p = K*np.exp(-r*T)*norm.cdf(-d2)-S*norm.cdf(-d1)
+    return p
+
+prices=[bs_call(100, 105, 0.01, 0.2, 1),bs_put(100, 105, 0.01, 0.2, 1)]
+```
+
