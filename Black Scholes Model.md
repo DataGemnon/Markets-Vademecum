@@ -49,11 +49,12 @@ with <img src="https://render.githubusercontent.com/render/math?math=\d_{1}=\fra
 
 N(x) represents the cumulative density function for x, a normally distributed variable. 
 
-The following code provides two functions to calculate the price of a European call et a European put. 
+The following code provides two functions to calculate the price of a European call et a European put. The variable prices gives you the price for a call and a put with the same parameters. The code further below provides 3-dimensional representations for calls and puts.
 
 ```python
 import numpy as np
 from scipy.stats import norm
+import matplotlib.pyplot as plt
 
 def bs_call(S, K, r, sigma, T):
     d1=(np.log(S/K)+(r+(sigma**2)/2)*T)/(sigma*np.sqrt(T))
@@ -68,5 +69,35 @@ def bs_put(S, K, r, sigma, T):
     return p
 
 prices=[bs_call(100, 105, 0.01, 0.2, 1),bs_put(100, 105, 0.01, 0.2, 1)]
+
+# plot for calls
+strikes = np.linspace(50, 150, 100)
+sigmas=np.linspace(0.01, 1, 100)
+X, Y = np.meshgrid(sigmas, strikes)
+Z=bs_call(100, Y, 0.01, X, 1)
+fig = plt.figure(figsize = (10,7))
+ax = plt.axes(projection='3d')
+ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap='jet', edgecolor='none')
+ax.set_title("3-dimensional plot of call prices", fontsize = 13)
+ax.set_xlabel('sigma', fontsize = 11)
+ax.set_ylabel('strike', fontsize = 11)
+ax.set_zlabel('call price', fontsize = 10)
+
+# same for puts
+Z2=bs_put(100, Y, 0.01, X, 1)
+fig2 = plt.figure(figsize = (10,7))
+ax2 = plt.axes(projection='3d')
+ax2.plot_surface(X, Y, Z2, rstride=1, cstride=1, cmap='viridis', edgecolor='none')
+ax2.set_title("3-dimensional plot of put prices", fontsize = 13)
+ax2.set_xlabel('sigma', fontsize = 11)
+ax2.set_ylabel('strike', fontsize = 11)
+ax2.set_zlabel('call price', fontsize = 10)
 ```
 
+First representation for calls:
+
+![3d for calls](https://user-images.githubusercontent.com/76557960/151881096-51d78aa9-e49b-4ccc-9fea-3226d32fad41.png)
+
+Second representation for puts:
+
+![3d for puts](https://user-images.githubusercontent.com/76557960/151881139-c463c540-ffaf-4d7e-9374-d57af56ae913.png)
