@@ -165,7 +165,7 @@ We can run 100 simulations to have a glimpse at the distribution at T=0.75 using
 
 ![100 simulations distribution](https://user-images.githubusercontent.com/76557960/151697385-a3200870-776c-4148-a2af-e8a35aa00f99.png)
 
-S has a lognormal distribution and we can infer from the propoerties of a lognormal distribution the following:
+S has a lognormal distribution and we can infer from the properties of a lognormal distribution the following:
 
 <img src="https://render.githubusercontent.com/render/math?math=\E(S_{T})=S_{0}e^{\mu T}"> for the expected value of <img src="https://render.githubusercontent.com/render/math?math=\S_{T}"> and <img src="https://render.githubusercontent.com/render/math?math=\var(S_{T})=S_{0}^{2}e^{2\mu T}(e^{\sigma ^{2}T}-1)"> concerning its variance. 
 
