@@ -39,3 +39,10 @@ HOOD:	1.61,
 IBM:	0.41,
 WMT:	0.37. Without big surprise, we notice that Walmart has the lowest and Robinhood the highest beta.
 
+#### Close-to-close historical volatility
+
+This is probably the most basic historical volatility measure existing. 
+
+ <img src="https://render.githubusercontent.com/render/math?math=\CCHV=\sqrt{\frac{1}{N}\sum_{i}^{N}x_{i}^{2}}"> 
+
+We use here the log returns of the closing prices. 
