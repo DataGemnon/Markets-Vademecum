@@ -91,5 +91,9 @@ plt.show()
 ![CCHV](https://user-images.githubusercontent.com/76557960/152385185-c6ac3fb4-4dc1-49f7-bb1b-df5eac4ff8d6.png)
 
 
+This volatility metric is pretty simple to compute but doesn't take into account intraday high and low levels.
 
+#### Parkinson Historical Volatility
+
+The PHV is an enhancement compared to the CCHV because it takes into account the lowest and highest value during the trading day. 
 
