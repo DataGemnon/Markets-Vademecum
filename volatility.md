@@ -45,15 +45,15 @@ This is probably the most basic historical volatility measure existing.
 
  <img src="https://render.githubusercontent.com/render/math?math=\CCHV=\sqrt{\frac{1}{N}\sum_{i}^{N}(x_{i}-\bar{x})^{2}}"> 
 
-We use here the log returns of the closing prices to compute this indicator. The following code downloads the data for Walmart and Apple and computes their CCHV based on the last 10 lags from 09.2018 to 02.2020.
+We use here the log returns of the closing prices to compute this indicator. The following code downloads the data for Walmart and Apple and computes their CCHV based on the last 22 lags from 01.2015 to 02.2020. N represents here the amount of trading days during a yeahr (252).
 
 ```python
 import yfinance as yf
 import numpy as np
 import matplotlib.pyplot as plt
 
-tickers = ['WMT', 'AAPL']
-data = yf.download(tickers, start='2018-09-01', end='2020-03-01')["Adj Close"] 
+tickers = [ 'WMT', 'AAPL']
+data = yf.download(tickers, start='2015-01-01', end='2020-03-01')["Adj Close"] 
 
 if len(tickers) <= 1:
     data=np.log(data)-np.log(data.shift(1)) #computing the returns for the market index
@@ -64,7 +64,7 @@ else:
         data=data.replace([np.inf, -np.inf], np.nan).dropna(axis=0)
 
 sums=[] #contains the sum of the last lags elements
-lags = 10
+lags = 22
 for i in range(0,len(data)):
     if i <lags:
         sums.append(data[:i+1])
@@ -74,16 +74,22 @@ sums=[x for x in sums if len(x)>=lags] # we only keep lists with lenght >= lags
 
 sigmas = []
 for j in range(len(sums)):
-    sigmas.append(np.std(sums[j]))
+    sigmas.append(np.std(sums[j] * np.sqrt(252)))
     
 plt.figure(figsize=(15,10))
 plt.plot(data.index[lags-1:], sigmas)
-plt.legend(sigmas[0].index)
+if len(tickers) <=1:
+    plt.legend(tickers)
+else:    
+    plt.legend(sigmas[0].index)
 plt.xlabel('time')
 plt.ylabel('CCHV')
 plt.show()
 ```
 
-![CCHV](https://user-images.githubusercontent.com/76557960/152043284-45139992-1e43-4d85-ae1a-faec4812a3e0.png)
+
+![CCHV](https://user-images.githubusercontent.com/76557960/152385185-c6ac3fb4-4dc1-49f7-bb1b-df5eac4ff8d6.png)
+
+
 
 
