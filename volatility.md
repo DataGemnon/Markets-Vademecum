@@ -52,8 +52,8 @@ import yfinance as yf
 import numpy as np
 import matplotlib.pyplot as plt
 
-tickers = [ 'WMT', 'AAPL']
-data = yf.download(tickers, start='2015-01-01', end='2020-03-01')["Adj Close"] 
+tickers = ['AAPL', 'WMT']
+data = yf.download(tickers, start='2015-01-01', end='2020-03-31')["Adj Close"] 
 
 if len(tickers) <= 1:
     data=np.log(data)-np.log(data.shift(1)) #computing the returns for the market index
@@ -74,7 +74,7 @@ sums=[x for x in sums if len(x)>=lags] # we only keep lists with lenght >= lags
 
 sigmas = []
 for j in range(len(sums)):
-    sigmas.append(np.std(sums[j] * np.sqrt(252)))
+    sigmas.append(np.std(sums[j] * np.sqrt(22)))
     
 plt.figure(figsize=(15,10))
 plt.plot(data.index[lags-1:], sigmas)
@@ -87,13 +87,55 @@ plt.ylabel('CCHV')
 plt.show()
 ```
 
-
-![CCHV](https://user-images.githubusercontent.com/76557960/152385185-c6ac3fb4-4dc1-49f7-bb1b-df5eac4ff8d6.png)
+![CCHV](https://user-images.githubusercontent.com/76557960/152562448-4a6cf46a-0471-42f3-b0c6-64a4a2d6256b.png)
 
 
 This volatility metric is pretty simple to compute but doesn't take into account intraday high and low levels.
 
 #### Parkinson Historical Volatility
 
-The PHV is an enhancement compared to the CCHV because it takes into account the lowest and highest value during the trading day. 
+The PHV is an enhancement compared to the CCHV because it takes into account the lowest and highest value during the trading day for a period of N days. Here we compare th data for BlackRock, Microsoft and Costco.
+
+ <img src="https://render.githubusercontent.com/render/math?math=\PHV=\sqrt{\frac{1}{N}\sum_{i}^{N}ln(\frac{H_{i}}{L_{i}})^{2}\cdot \frac{1}{4\cdot ln(2)}}"> 
+
+
+``` python
+import yfinance as yf
+import numpy as np
+import matplotlib.pyplot as plt
+
+tickers = ['BLK', 'MSFT', 'COST']
+data = yf.download(tickers, start='2015-01-01', end='2020-03-31')[['Low', 'High']]
+
+if len(tickers) <= 1:
+    data['Ratio']=np.log(data['High']/data['Low'])*(1/(4*np.log(2)))
+else:
+    for ticker in tickers:
+        data[('Ratio', ticker)]=np.log(data[('High', ticker)]/data[('Low', ticker)])        
+data=data.replace([np.inf, -np.inf], np.nan).dropna(axis=0)
+
+sums=[] #contains the sum of the last lags elements
+lags = 22
+for i in range(0,len(data)):
+    if i <lags:
+        sums.append(data[:i+1])
+    else:
+        sums.append(data[i - lags+1:i+1])
+sums=[x for x in sums if len(x)>=lags]
+
+for df in sums:
+    df.drop(['Low', 'High'], axis=1, inplace=True)
+    
+sums=[np.sqrt(np.mean(x)) for x in sums]
+                            
+plt.figure(figsize=(15,10))
+plt.plot(data.index[lags-1:], sums)
+plt.legend(tickers)
+plt.xlabel('time')
+plt.ylabel('Parkinson')
+plt.show()
+```
+
+![Parkinson](https://user-images.githubusercontent.com/76557960/152563440-0a04be18-8989-4298-99d9-7a8af7bc90d4.png)
+
 
