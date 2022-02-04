@@ -144,6 +144,9 @@ Since Parkinson doesn't take into account opening prices (and therefore price ju
 
 The Garman-Klass volatility estimator takes into account the opening and closing prices but also their maximum and minimum levels during a day. It is an enhancement to the Parkinson model.
 
+ <img src="https://render.githubusercontent.com/render/math?math=\GK=\sqrt{\frac{1}{N}\sum_{i}^{N}ln(\frac{H_{i}}{L_{i}})^{2}-(2\cdot ln(2)-1)\cdot (ln\frac{C_{i}}{O_{i}})^{2}}"> 
+
+
 ``` python
 import yfinance as yf
 import numpy as np
