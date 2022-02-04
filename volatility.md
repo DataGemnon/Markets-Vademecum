@@ -45,7 +45,7 @@ This is probably the most basic historical volatility measure existing.
 
  <img src="https://render.githubusercontent.com/render/math?math=\CCHV=\sqrt{\frac{1}{N}\sum_{i}^{N}(x_{i}-\bar{x})^{2}}"> 
 
-We use here the log returns of the closing prices to compute this indicator. The following code downloads the data for Walmart and Apple and computes their CCHV based on the last 22 lags from 01.2015 to 02.2020. N represents here the amount of trading days during a yeahr (252).
+We use here the log returns of the closing prices to compute this indicator. The following code downloads the data for Walmart and Apple and computes their CCHV based on the last 22 lags from 01.2015 to 02.2020. N represents here the amount of trading days during the period (22 here).
 
 ```python
 import yfinance as yf
