@@ -138,4 +138,4 @@ plt.show()
 
 ![Parkinson](https://user-images.githubusercontent.com/76557960/152563440-0a04be18-8989-4298-99d9-7a8af7bc90d4.png)
 
-
+Since Parkisnon doesn't take into account opening prices (and therefore price jumps), it tends to underestimate the volatility.
