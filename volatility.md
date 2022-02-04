@@ -138,4 +138,48 @@ plt.show()
 
 ![Parkinson](https://user-images.githubusercontent.com/76557960/152563440-0a04be18-8989-4298-99d9-7a8af7bc90d4.png)
 
-Since Parkisnon doesn't take into account opening prices (and therefore price jumps), it tends to underestimate the volatility.
+Since Parkinson doesn't take into account opening prices (and therefore price jumps), it tends to underestimate the volatility.
+
+#### Garman-Klass Volatility
+
+The Garman-Klass volatility estimator takes into account the opening and closing prices but also their maximum and minimum levels during a day. It is an enhancement to the Parkinson model.
+
+``` python
+import yfinance as yf
+import numpy as np
+import matplotlib.pyplot as plt
+
+tickers = ['IBM', 'BAC', 'NKE']
+data = yf.download(tickers, start='2015-01-01', end='2020-03-31')[['Open','Low', 'High', 'Close']]
+
+if len(tickers) <= 1:
+    data['Ratio']=np.log(data['High']/data['Low'])-(2*np.log(2)-1)*(np.log(data['Close']/data['Open']))
+else:
+    for ticker in tickers:
+        data[('Ratio', ticker)]=np.log(data[('High',ticker)]/data[('Low',ticker)])-(2*np.log(2)-1)*(np.log(data[('Close',ticker)]/data[('Open',ticker)]))       
+data=data.replace([np.inf, -np.inf], np.nan).dropna(axis=0)
+
+sums=[] #contains the sum of the last lags elements
+lags = 22
+for i in range(0,len(data)):
+    if i <lags:
+        sums.append(data[:i+1])
+    else:
+        sums.append(data[i - lags+1:i+1])
+sums=[x for x in sums if len(x)>=lags]
+
+for df in sums:
+    df.drop(['Low', 'High', 'Close', 'Open'], axis=1, inplace=True)
+
+sums=[np.sqrt(np.mean(x)) for x in sums]
+                            
+plt.figure(figsize=(15,10))
+plt.plot(data.index[lags-1:], sums)
+plt.legend(tickers)
+plt.xlabel('time')
+plt.ylabel('Garman-Klass')
+plt.show()
+```
+
+![Garman Klass](https://user-images.githubusercontent.com/76557960/152599718-6c48aaac-40d4-4f05-8f20-ae81e8a0736c.png)
+
