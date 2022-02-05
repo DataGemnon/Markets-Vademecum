@@ -104,39 +104,29 @@ import yfinance as yf
 import numpy as np
 import matplotlib.pyplot as plt
 
-tickers = ['BLK', 'MSFT', 'COST']
-data = yf.download(tickers, start='2015-01-01', end='2020-03-31')[['Low', 'High']]
-
-if len(tickers) <= 1:
-    data['Ratio']=np.log(data['High']/data['Low'])*(1/(4*np.log(2)))
-else:
-    for ticker in tickers:
-        data[('Ratio', ticker)]=np.log(data[('High', ticker)]/data[('Low', ticker)])        
-data=data.replace([np.inf, -np.inf], np.nan).dropna(axis=0)
-
-sums=[] #contains the sum of the last lags elements
-lags = 22
-for i in range(0,len(data)):
-    if i <lags:
-        sums.append(data[:i+1])
+def parkinson(tickers, start_date, end_date, lags):
+    data=yf.download(tickers, start=start_date, end=end_date)[['Open','Low', 'High', 'Close']]
+    if len(tickers) <= 1:
+        data['Ratio'] = (1.0 / (4.0 * np.log(2.0))) * ((data['High'] / data['Low']).apply(np.log))**2.0
+        data['Ratio']=data['Ratio'].rolling(window=lags).apply(lambda x:(np.mean(x)*252)**0.5)
+        data['Ratio']=data['Ratio'].dropna()
     else:
-        sums.append(data[i - lags+1:i+1])
-sums=[x for x in sums if len(x)>=lags]
-
-for df in sums:
-    df.drop(['Low', 'High'], axis=1, inplace=True)
+        for ticker in tickers:
+            data[('Ratio', ticker)] = (1.0 / (4.0 * np.log(2.0))) * ((data[('High',ticker)] / data[('Low',ticker)]).apply(np.log))**2.0
+            data[('Ratio',ticker)]=data[('Ratio',ticker)].rolling(window=lags).apply(lambda x:(np.mean(x)*252)**0.5)
+            data[('Ratio',ticker)]=data[('Ratio',ticker)].dropna()
+    plt.figure(figsize=(15,10))
+    plt.plot(data.index, data['Ratio'])
+    plt.legend(tickers)
+    plt.xlabel('time')
+    plt.ylabel('Parkinson')
+    plt.show()
     
-sums=[np.sqrt(np.mean(x)) for x in sums]
-                            
-plt.figure(figsize=(15,10))
-plt.plot(data.index[lags-1:], sums)
-plt.legend(tickers)
-plt.xlabel('time')
-plt.ylabel('Parkinson')
-plt.show()
+parkinson(['BLK', 'MSFT', 'COST'], '2015-01-01', '2020-03-31', 22)
 ```
 
-![Parkinson](https://user-images.githubusercontent.com/76557960/152563440-0a04be18-8989-4298-99d9-7a8af7bc90d4.png)
+![Parkinson](https://user-images.githubusercontent.com/76557960/152657023-1ee74022-1e79-49ab-ac6f-603ec8f34a18.png)
+
 
 Since Parkinson doesn't take into account opening prices (and therefore price jumps), it tends to underestimate the volatility.
 
