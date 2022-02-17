@@ -6,7 +6,7 @@ This work is done by Master in Finance students.
 ### Stock path modeling
 #### Short introduction to options
 
-Options are financial derivatives that give their holder the right (not the obligation) to buy or sell the underlying asset (stocks, currencies …) for a given price at a given maturity. Calls options give their holders the right to buy and put options the right to sell. The payoff of a call is given by max(0 ; St-K) and the payoff of a put is given by max(0 ; K-St) with K being the strike price and St the spot price. But before going into the option's pricing theory, we must see how to modelize stock paths. 
+Options are financial derivatives that give their holder the right (not the obligation) to buy or sell the underlying asset (stocks, currencies …) for a given price at a given maturity. Call options give their holders the right to buy and put options the right to sell. The payoff of a call is given by max(0 ; St-K) and the payoff of a put is given by max(0 ; K-St) with K being the strike price and St the spot price. But before going into the option's pricing theory, we must see how to modelize stock paths. 
 
 #### Markov Process & Wiener Process
 
@@ -18,7 +18,7 @@ A Wiener process is one kind of Markov process with mean 0 and variance 1. A var
 
 *  with <img src="https://render.githubusercontent.com/render/math?math=\Delta z "> being the change of variable z, <img src="https://render.githubusercontent.com/render/math?math=\Delta t "> being a small time increment and <img src="https://render.githubusercontent.com/render/math?math=\varepsilon "> being a normally distributed variable (<img src="https://render.githubusercontent.com/render/math?math=\Phi \left ( 0,1 \right ) ">). <img src="https://render.githubusercontent.com/render/math?math=\Delta z "> is also normally distributed with mean 0, variance <img src="https://render.githubusercontent.com/render/math?math=\Delta t "> and standard deviation <img src="https://render.githubusercontent.com/render/math?math=\sqrt{\Delta t}">.
 
-* <img src="https://render.githubusercontent.com/render/math?math=\Delta z ">for different time increments are independent.
+* <img src="https://render.githubusercontent.com/render/math?math=\Delta z "> for different time increments are independent.
 
 <img src="https://render.githubusercontent.com/render/math?math=\ z\left ( T \right )-z\left ( 0 \right )"> gives us the change of the variable z betwenn time 0 and time T. If we consider that there are N time increments <img src="https://render.githubusercontent.com/render/math?math=\Delta t "> between time 0 and time T (<img src="https://render.githubusercontent.com/render/math?math=\N = \frac{T}{\Delta t} ">), we can  deduce following equation:
 
