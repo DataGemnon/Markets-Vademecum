@@ -176,3 +176,8 @@ plt.show()
 
 ![Garman Klass](https://user-images.githubusercontent.com/76557960/152599718-6c48aaac-40d4-4f05-8f20-ae81e8a0736c.png)
 
+
+#### Implied volatility
+
+The Black-Scholes formula takes into account <img src="https://render.githubusercontent.com/render/math?math=\PHV=\sigma"> which is the volatility indicator. The implied volatility is the volatility we get if we possess two information : the option price and the all other parameters of the Black Scholes formula. It is the market’s view of volatility over the life of the option.
+
